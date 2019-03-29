@@ -32,7 +32,7 @@ var responce = (statusCode:Int(), message:String(), erormessage:String())
 
 responce = (244, "WooHoo", "ERRRORRR")
 
-if responce.statusCode >= 200 && responce.statusCode <= 300 {
+if responce.statusCode >= 200 && responce.statusCode < 300 {
     print(responce.message)
 }
 else {
