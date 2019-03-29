@@ -1,11 +1,3 @@
-//1st
-let name = "Vasya"
-let surname = "Pupkin"
-let height = "198 sm"
-let weight = "58ft"
-let age = 19
-print("\tStudent parametrs:\n Name: \(name)\n Surname: \(surname)\n Age: \(age) Height: \(height)\n Weight: \(weight)")
-
 //2nd
 
 // 1/3
@@ -26,9 +18,9 @@ let first = 10
 let second = 11.1
 let third : Float = 12.2
 
-let intSum: Int = first + Int(second) + Int(third)
-let floatSum: Float = Float(first) + Float(second) + third
-let doubleSum: Double = Double(first) + second + Double(third)
+let intSum = first + Int(second) + Int(third)
+let floatSum = Float(first) + Float(second) + third
+let doubleSum = Double(first) + second + Double(third)
 
 // 3/3
 if Double(intSum) < doubleSum{
