@@ -1,0 +1,196 @@
+struct SStudent{
+    var name: String
+    var surname: String
+    var yearOfBirthday: Int
+    var avg: Double
+}
+
+class CStudent{
+    var name: String
+    var surname: String
+    var yearOfBirthday: Int
+    var avg: Double
+    init(name: String, surname: String, yearOfBirthday: Int, avg: Double){
+    	self.name = name
+    	self.surname = surname
+    	self.yearOfBirthday = yearOfBirthday
+    	self.avg = avg
+    }
+}
+
+func studentDisplay(_ student: SStudent,_ number: Int?){
+    if number != nil{
+        print("\(number!). \(student.surname) \(student.name) was born in \(student.yearOfBirthday) has average mark \(student.avg)")
+    } else {
+        print("\(student.name) \(student.surname) was born in \(student.yearOfBirthday) has average mark \(student.avg)")
+    }
+}
+func studentDisplay(_ student: CStudent,_ number: Int?){
+    if number != nil{
+        print("\(number!). \(student.surname) \(student.name) was born in \(student.yearOfBirthday) has average mark \(student.avg)")
+    } else {
+        print("\(student.name) \(student.surname) was born in \(student.yearOfBirthday) has average mark \(student.avg)")
+    }
+}
+
+func studentsDisplay(_ array: [SStudent]){
+    var i = 0
+    for student in array{
+        i=i+1
+        studentDisplay(student,i)
+    }
+}
+func studentsDisplay(_ array: [CStudent]){
+    var i = 0
+    for student in array{
+        i=i+1
+        studentDisplay(student,i)
+    }
+}
+
+var student1 = SStudent(name: "Vasya", surname: "Pupkin", yearOfBirthday: 2000, avg: 4.5)
+var student2 = SStudent(name: "Petro", surname: "Vasuluk", yearOfBirthday: 2000, avg: 3.6)
+var student3 = SStudent(name: "Ivan", surname: "Pupkin", yearOfBirthday: 1999, avg: 4.8)
+var student4 = SStudent(name: "Alex", surname: "Gyver", yearOfBirthday: 2000, avg: 3.8)
+var student5 = SStudent(name: "Ihor", surname: "Vereshak", yearOfBirthday: 2000, avg: 2.2)
+
+var studentsArray = [student1,student2,student3,student4,student5]
+
+studentsDisplay(studentsArray)
+print("s---------------")
+studentsDisplay( studentsArray.sorted{$0.avg > $1.avg} )
+print("s---------------")
+studentsDisplay( studentsArray.sorted{$0.surname == $1.surname ? $0.name < $1.name : $0.surname < $1.surname} )
+
+var array = studentsArray
+array[0].avg = 5
+print("r---------------")
+studentsDisplay( array.sorted{$0.avg > $1.avg} )
+print("r---------------")
+studentsDisplay( studentsArray.sorted{$0.avg > $1.avg} )
+
+
+var student6 = CStudent(name: "Vasya", surname: "Pupkin", yearOfBirthday: 2000, avg: 4.5)
+var student7 = CStudent(name: "Petro", surname: "Vasuluk", yearOfBirthday: 2000, avg: 3.6)
+var student8 = CStudent(name: "Ivan", surname: "Pupkin", yearOfBirthday: 1999, avg: 4.8)
+var student9 = CStudent(name: "Alex", surname: "Gyver", yearOfBirthday: 2000, avg: 3.8)
+var student10 = CStudent(name: "Ihor", surname: "Vereshak", yearOfBirthday: 2000, avg: 2.2)
+
+var students2Array = [student6,student7,student8,student9,student10]
+
+print("s---------------")
+studentsDisplay(students2Array)
+print("c---------------")
+studentsDisplay( students2Array.sorted{$0.avg > $1.avg} )
+print("c---------------")
+studentsDisplay( students2Array.sorted{$0.surname == $1.surname ? $0.name < $1.name : $0.surname < $1.surname} )
+
+var array2 = students2Array
+array2[0].avg = 5
+print("r---------------")
+studentsDisplay( array2.sorted{$0.avg > $1.avg} )
+print("r---------------")
+studentsDisplay( students2Array.sorted{$0.avg > $1.avg} )
+
+//// for Supermans
+
+class Coordinate{
+    var x: String
+    var y: Int
+    init(_ x: String, _ y: Int) {
+        self.x = x
+        self.y = y
+    }
+}
+
+enum Collor{
+    case White
+    case Black
+}
+
+enum FigureType: Int{
+    case King = 0
+    case Queen  
+    case Rook
+    case Bishop 
+    case Knight
+    case Pawn
+}
+
+class Figure{
+    var xcoordinate:Int
+    var ycoordinate:String
+    let collor: Collor
+    var type: FigureType
+    init(_ type: FigureType, _ collor: Collor, _ x: Int, _ y: String){
+        self.type = type
+        self.collor = collor
+        self.xcoordinate = x
+        self.ycoordinate = y 
+    }
+} 
+
+var figure1 = Figure(.King, .White, 5, "A")
+var figure2 = Figure(.King, .Black, 5, "H")
+var figure3 = Figure(.Pawn, .Black, 6, "H")
+var figure4 = Figure(.Queen, .White, 7, "A")
+var figure5 = Figure(.Pawn, .Black, 5, "G")
+var figure6 = Figure(.Rook, .White, 3, "F")
+var figure7 = Figure(.Pawn, .Black, 2, "D")
+var figure8 = Figure(.Rook, .White, 1, "A")
+var figure9 = Figure(.Queen, .Black, 1, "C")
+var figure10 = Figure(.Pawn, .White, 1, "E")
+
+var chess = [figure1, figure2, figure3, figure4, figure5, figure6, figure7, figure8, figure9, figure10]
+
+func figureDisplay(_ figure: Figure){
+    print("The \(figure.collor) \(figure.type) in \(figure.ycoordinate)\(figure.xcoordinate)")
+}
+func figureDisplay(_ array: [Figure]){
+    for f in array{
+        figureDisplay(f)
+    }
+}
+
+figureDisplay(chess)
+
+func chessBoardSquereUnicode(figure: Figure) -> String{
+    let constantNumber = 6
+    let value = figure.collor == .White ? 0 : constantNumber
+    let unicode = 0x2654 + value + figure.type.rawValue
+    return(String(UnicodeScalar(unicode)!))
+}
+
+func chessBoardDisplay(_ array: [Figure]){
+    var letters = ["H" , "G", "F", "E", "D", "C", "B", "A"]
+    var collor = false
+
+    for letter in letters{
+        for i in 1...8{
+            var isFigure = false
+            var currentFigure : Figure = array[0]
+            var cell = letter + String(i)
+
+            for figure in array{
+                if(cell == figure.ycoordinate + String(figure.xcoordinate)){
+                    isFigure = true
+                    currentFigure = figure
+                }
+            }
+
+            if isFigure{
+                print(chessBoardSquereUnicode(figure: currentFigure), terminator: "")
+            } else if collor {
+                print("\u{25FB}", terminator: "")
+            } else {
+                print("\u{25FC}", terminator: "")
+            }  
+            !collor
+        }
+        print("\n", terminator: "")
+        !collor
+    }
+}
+
+chessBoardDisplay(chess)
+

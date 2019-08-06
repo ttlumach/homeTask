@@ -1,0 +1,150 @@
+// 1/2
+enum FileType{
+    case hidden
+    case visible
+}
+
+struct FileProperties{
+    var path: String
+    
+    var name: String{
+        get{
+            let array = path.split(separator: "\\") 
+            return String(array[array.count-1])
+        }
+        set{
+           var array = path.split(separator: "\\")
+            array.remove(at: array.count-1)
+            var result = ""
+            for el in array{
+                result +=  el +  "\\"
+            }
+            path = result + newValue
+        }
+    }
+
+    var folderPath: String {
+        get{
+            var array = path.split(separator: "\\")
+            array.remove(at: array.count-1)
+            var result = ""
+            for el in array{
+                result +=  el +  "\\"
+            }
+            return result
+        }
+        set{
+            var array = path.split(separator: "\\")
+            var result = array[array.count-1]
+            path = newValue +  result
+        }
+    }
+    var type: FileType
+    var content: String
+    static var maxSize: Int = 108000
+}
+
+var file = FileProperties(path: "d:\\b\\c\\d\\free.exe", type: FileType.visible, content: "khlfuosyadvfa")
+
+print(file.path)
+print(file.type)
+print(FileProperties.maxSize)
+print(file.folderPath)
+print(file.name)
+
+print("----------")
+file.folderPath = "C:\\myFolder\\"
+print(file.folderPath)
+print(file.path)
+
+print("----------")
+file.name = "myFile.docx"
+print(file.name)
+print(file.path)
+
+// 2/3 (Not done)
+
+/*enum Collor: Int{
+    case Red  = 120
+    case Green = 0
+    case Blue = 135
+
+    static var colorCount: Int{
+        if ( .Red.rawValue > 0 && .Green.rawValue > 0 && .Blue.rawValue > 0) {
+            return 3
+        } else if (.Red.rawValue > 0 && .Green.rawValue > 0 ||
+                    .Blue.rawValue > 0 && .Red.rawValue > 0 ||
+                    .Blue.rawValue > 0 && .Green.rawValue > 0){
+            return 2
+        } else {
+            return 1
+        }
+    }
+}
+*/
+
+
+// 3/3
+
+class Human{
+    static var humans = 0
+    static let nameMaxLength = 255
+    static let surnameMaxLength = 255
+    static let maxAge = 120
+    static let maxLength = 320
+    static let maxWeight = 300
+
+    var name: String{
+        didSet{
+            if name.count > Human.nameMaxLength{
+                name = oldValue
+            }
+        }
+    }
+    var surname: String{
+        didSet{
+            if surname.count > Human.surnameMaxLength{
+                surname = oldValue
+            }
+        }
+    }
+    var age: Int{
+        didSet{
+            if age > Human.maxAge{
+                age = oldValue
+            }
+        }
+    }
+    var length: Double{
+        didSet{
+            if Int(length) > Human.maxLength{
+                length = oldValue
+            }
+        }
+    }
+    var weight: Double{
+        didSet{
+            if Int(weight) > Human.maxWeight{
+                weight = oldValue
+            }
+        }
+    }
+
+    init(name: String, surname: String, age: Int, length: Double, weight: Double){
+        self.name = name
+        self.surname = surname
+        self.age = age
+        self.length = length
+        self.weight = weight
+        Human.humans += 1
+    }
+}
+
+
+Human(name: "Vasya", surname: "Pupkin", age: 16, length: 155.5, weight: 54.3)
+Human(name: "Petro", surname: "Pupkin", age: 19, length: 184, weight: 75.7)
+Human(name: "Vasya", surname: "Petruk", age: 21, length: 195.5, weight: 109.6)
+
+print(Human.humans)
+
+

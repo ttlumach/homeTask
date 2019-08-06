@@ -1,0 +1,123 @@
+struct Room{
+    let length = 20
+    let width = 20
+}
+
+struct Point{
+    var x: Int
+    var y: Int
+}
+
+enum Side{
+    case Up
+    case Down
+    case Left
+    case Right
+}
+
+class Hero{
+    var icon = "\u{25CD}"
+    var x = 1{
+        didSet{
+            if x < 1 || x > 20{
+                x = oldValue
+            }
+        }
+    }
+    var y = 2{
+        didSet{
+            if y < 1 || y > 20{
+                y = oldValue
+            }
+        }
+    }
+    func go(to side: Side, box: inout Box){
+        switch side{
+            //can
+            case .Up where box.y < 20 && self.y - 1 == box.y && self.x == box.x: 
+                self.y -= 1
+                box.y -= 1
+            case .Down where box.y > 1 && self.y + 1 == box.y && self.x == box.x:
+                self.y += 1
+                box.y += 1
+            case .Left where box.x > 2 && self.x - 1 == box.x  && self.y == box.y:
+                self.x -= 1
+                box.x -= 1
+            case .Right where box.y < 20 && self.x + 1 == box.x  && self.y == box.y:
+                self.x += 1
+                box.x += 1
+            //can`t
+            case .Up where box.y == 20 && self.y - 1 == box.y && self.x == box.x: 
+                break
+            case .Down where box.y == 1 && self.y + 1 == box.y && self.x == box.x:
+                break
+            case .Left where box.x == 2 && self.x - 1 == box.x  && self.y == box.y:
+                break
+            case .Right where box.y == 20 && self.x + 1 == box.x  && self.y == box.y:
+                break
+            //without box
+            case .Up: self.y -= 1
+            case .Down: self.y += 1
+            case .Left: self.x -= 1
+            case .Right: self.x += 1
+            default: break  
+        }
+    }
+}
+
+class Box{
+    var icon = "\u{25AA}"
+    var x = 2
+    var y = 2
+}
+
+
+func display(room: Room, hero: Hero, box: Box){
+    for i in 0...room.length{
+        for j in 0...room.width{
+            switch (i,j){
+                case let (i,_) where i == 0: print("\u{2501}", terminator: "")
+                case let (i,_) where i == room.length: print("\u{2501}", terminator: "")
+                case let (_,j) where j == room.width: print("\u{2595}", terminator: "")
+                case let (_,j) where j == 0: print("\u{258F}", terminator: "")
+                case let (i,j) where hero.x == j && hero.y == i: print(hero.icon, terminator: "")
+                case let (i,j) where box.x == j && box.y == i: print(box.icon, terminator: "")
+                default:  print(" ", terminator: "")
+            }
+        }
+          print("\n", terminator: "")
+    }
+}
+
+var room1 = Room()
+var myHero = Hero()
+var box = Box()
+display(room: room1, hero: myHero, box: box)
+
+myHero.go(to: Side.Right, box: &box)
+display(room: room1, hero: myHero, box: box)
+
+myHero.go(to: Side.Up, box: &box)
+display(room: room1, hero: myHero, box: box)
+
+myHero.go(to: Side.Right, box: &box)
+display(room: room1, hero: myHero, box: box)
+
+myHero.go(to: Side.Down, box: &box)
+display(room: room1, hero: myHero, box: box)
+
+myHero.go(to: Side.Right, box: &box)
+display(room: room1, hero: myHero, box: box)
+
+myHero.go(to: Side.Down, box: &box)
+display(room: room1, hero: myHero, box: box)
+
+myHero.go(to: Side.Left, box: &box)
+display(room: room1, hero: myHero, box: box)
+
+myHero.go(to: Side.Left, box: &box)
+display(room: room1, hero: myHero, box: box)
+
+myHero.go(to: Side.Left, box: &box)
+display(room: room1, hero: myHero, box: box)
+

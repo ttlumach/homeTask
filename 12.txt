@@ -1,0 +1,172 @@
+// 1/4
+print("1-------------------------1")
+enum ChessName: String{
+    case Pawn = "Pawn"
+    case Bishop = "Bishop"
+    case Knight = "Knight"
+    case Rook = "Rook"
+    case Queen = "Queen"
+    case King = "King"
+}
+
+enum ChessColor{
+    case White
+    case Black
+}
+
+enum Chess{
+    case Pawn(color: ChessColor, coordinate: (Int, String),name: ChessName)
+    case Bishop(color: ChessColor, coordinate: (Int, String),name: ChessName) 
+    case Knight(color: ChessColor, coordinate: (Int, String),name: ChessName) 
+    case Rook(color: ChessColor, coordinate: (Int, String),name: ChessName) 
+    case Queen(color: ChessColor, coordinate: (Int, String),name: ChessName)
+    case King(color: ChessColor, coordinate: (Int, String),name: ChessName) 
+}
+
+var whiteKing = Chess.King(color: .White, coordinate: (4,"B"), name: .King)
+var whitePawn1 = Chess.Pawn(color: .White, coordinate: (5,"C"), name: .Pawn)
+var whitePawn2 = Chess.Pawn(color: .White, coordinate: (5,"E"), name: .Pawn)
+var whitePawn3 = Chess.Pawn(color: .White, coordinate: (5,"B"), name: .Pawn)
+
+var blackKing = Chess.King(color: .Black, coordinate: (7,"B"), name: .King)
+var blackRook1 = Chess.Bishop(color: .Black, coordinate: (4,"A"), name: .Rook)
+var blackRook2 = Chess.Bishop(color: .Black, coordinate: (3,"A"), name: .Rook)
+
+// 2/4
+print("2-------------------------2")
+
+var chessFigures = [whiteKing, whitePawn1, whitePawn2, whitePawn3, blackKing, blackRook1, blackRook2]
+
+func figureDisplay(_ figure: Chess){
+    switch figure{
+        case .Pawn(let color, let (x,y), let name),
+            .Bishop(let color, let (x,y), let name),
+            .King(let color, let (x,y), let name),
+            .Queen(let color, let (x,y), let name),
+            .Rook(let color, let (x,y), let name),
+            .Knight(let color, let (x,y), let name):
+        print("The \(color) \(name) in \(y)\(x)")
+        default: break
+    }
+}
+
+func figureDisplay(_ array: [Chess]){
+    for f in array{
+        figureDisplay(f)
+    }
+}
+
+figureDisplay(chessFigures)
+
+// 3/4
+print("3-------------------------3")
+
+func chessBoardDisplay(_ array: [Chess]){
+    var chess : [String: (ChessColor,ChessName)] = [:]
+    var letters = ["H" , "G", "F", "E", "D", "C", "B", "A"]
+    var collor = true
+
+    for f in array{
+        switch f{
+            case .Pawn(let color, let (x,y), let name),
+                .Bishop(let color, let (x,y), let name),
+                .King(let color, let (x,y), let name),
+                .Queen(let color, let (x,y), let name),
+                .Rook(let color, let (x,y), let name),
+                .Knight(let color, let (x,y), let name):
+                chess["\(y)\(x)"] = (color ,name)
+            default: break
+        }
+    }
+
+    for letter in letters{
+        for i in 1...8{
+            var isFigure = false
+            var currentFigure : [String: (ChessColor,ChessName)] = [:]
+            var cell = letter + String(i)
+
+            for (key,value) in chess{
+                if(cell == key){
+                    isFigure = true
+                    currentFigure[key] = value
+                }
+            }
+
+            if isFigure{
+                for value in currentFigure.values{
+                    switch value{
+                    case (let col, let fig) where col == ChessColor.White && fig == ChessName.Pawn: print("\u{2659}", terminator: "")
+                    case (let col, let fig) where col == ChessColor.White && fig == ChessName.Bishop: print("\u{2657}", terminator: "")
+                    case (let col, let fig) where col == ChessColor.White && fig == ChessName.King: print("\u{2654}", terminator: "")
+                    case (let col, let fig) where col == ChessColor.White && fig == ChessName.Queen: print("\u{2655}", terminator: "")
+                    case (let col, let fig) where col == ChessColor.White && fig == ChessName.Rook: print("\u{2656}", terminator: "")
+                    case (let col, let fig) where col == ChessColor.White && fig == ChessName.Knight: print("\u{2658}", terminator: "")
+                    case (let col, let fig) where col == ChessColor.Black && fig == ChessName.Pawn: print("\u{265F}", terminator: "")
+                    case (let col, let fig) where col == ChessColor.Black && fig == ChessName.Bishop: print("\u{265D}", terminator: "")
+                    case (let col, let fig) where col == ChessColor.Black && fig == ChessName.King: print("\u{265A}", terminator: "")
+                    case (let col, let fig) where col == ChessColor.Black && fig == ChessName.Queen: print("\u{265B}", terminator: "")
+                    case (let col, let fig) where col == ChessColor.Black && fig == ChessName.Rook: print("\u{265C}", terminator: "")
+                    case (let col, let fig) where col == ChessColor.Black && fig == ChessName.Knight: print("\u{265E}", terminator: "")
+                    default: break
+                    }
+                }
+            } else if collor{
+                print("\u{25FB}", terminator: "")
+            } else {
+                print("\u{25FC}", terminator: "")
+            }  
+            collor = !collor
+        }
+        print("\n", terminator: "")
+        collor = !collor
+    }
+}
+
+chessBoardDisplay(chessFigures)
+
+
+//4 /4
+print("4-------------------------4")
+
+func moveChess(_ figure: inout Chess, _ coord: (Int,String)) -> Bool{
+    if coord.0 < 1 || coord.0 > 8 || coord.1 < "A" || coord.1 > "H"{
+        print("Imposible sell")
+        return false
+
+    } else {
+        switch figure{
+            case .Pawn(let color, _ , let name): 
+                figure = .Pawn(color: color, coordinate: (coord.0, coord.1), name: name)
+                print("The \(color) \(name) now in \(coord.1)\(coord.0)")
+            case .Bishop(let color, _ , let name):
+                figure = .Bishop(color: color, coordinate: (coord.0, coord.1), name: name)
+                print("The \(color) \(name) now in \(coord.1)\(coord.0)")
+            case .King(let color, _ , let name): 
+                figure = .King(color: color, coordinate: (coord.0, coord.1), name: name)
+                print("The \(color) \(name) now in \(coord.1)\(coord.0)")
+            case .Queen(let color, _ , let name): 
+                figure = .Queen(color: color, coordinate: (coord.0, coord.1), name: name)
+                print("The \(color) \(name) now in \(coord.1)\(coord.0)")
+            case .Rook(let color, _ , let name): 
+                figure = .Rook(color: color, coordinate: (coord.0, coord.1), name: name)
+                print("The \(color) \(name) now in \(coord.1)\(coord.0)")
+            case .Knight(let color, _ , let name):
+                figure = .Knight(color: color, coordinate: (coord.0, coord.1), name: name)
+                print("The \(color) \(name) now in \(coord.1)\(coord.0)")
+            default: break
+        }
+        return true
+    }
+}
+
+moveChess( &blackKing, (8,"J") )
+moveChess( &blackKing, (8,"B") )
+chessFigures = [whiteKing, whitePawn1, whitePawn2, whitePawn3, blackKing, blackRook1, blackRook2]
+chessBoardDisplay(chessFigures)
+
+
+
+
+
+
+

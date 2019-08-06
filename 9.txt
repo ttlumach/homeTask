@@ -1,0 +1,107 @@
+import Foundation
+
+// 1/5
+func cock(){
+    print("\u{1F414}")
+}
+
+func vortex(){
+    print("\u{1F300}")
+}
+
+func japan(){
+    print("\u{1F250}")
+}
+
+func city(){
+    print("\u{1F301}")
+}
+
+cock() 
+vortex() 
+japan() 
+city()
+
+
+// 2/5
+print("2------------2")
+
+func getChessSquareColor(_ x: Int, _ y: Int) -> String{
+    if x < 1 || y < 1{
+        return "wrong coord"
+    }
+    if ((x % 2 == 1 && y % 2 == 2) || (x % 2 == 0 && y % 2 == 1)){
+        return "white"
+    }  else {
+        return "black"
+    }
+}
+
+
+let somePoint = getChessSquareColor(1,1)
+print(somePoint)
+
+
+// 3/5
+print("3------------3")
+
+func reverse(_ array: [Int] ) -> [Int]{
+    var finalArray: [Int] = []
+    for value in array{
+        finalArray.insert(value, at: 0)
+    }
+    return finalArray
+}
+
+func reverse(_ sequence: Int...) -> [Int]{
+    var array: [Int] = []
+    for el in sequence{
+        array.append(el)
+    }  
+    return reverse(array)
+}
+
+
+print(reverse(1,2,3,4,5,6,7,8,9,0))
+
+let someIntArray = [2,2,3,3,4,1,1,1,0]
+print(reverse(someIntArray))
+
+// 4/5
+print("4------------4")
+func inoutReverse(_  array: inout [Int] ){
+    array = reverse(array)
+}
+
+var someArray = [2,2,3,3,4,1,1,1,0]
+print(someArray)
+inoutReverse(&someArray)
+print(someArray)
+
+// 5/5
+print("5------------5")
+
+func doSomeThings(with sometext: String) -> String{
+    var finalString = ""
+    let digits = ["Zero","One","Two","Tree","Four","Five","Six","Seven","Eight","Nine"]
+    for char in sometext{
+        switch char{
+            case ",", ".", "-": break
+            case "a","o","e","i","u": finalString += char.uppercased()
+            case "B","C","D","F","G","H","J","K","L","M","N","P","Q","R","S","T","Y","V","W","X","Z": finalString += char.lowercased()
+            case let digit where digit.wholeNumberValue != nil : let index = Int(String(digit))!; finalString += digits[index]
+            default: finalString += String(char)
+
+        }
+    }
+    return finalString
+}
+
+
+let someText = "1,2,3. Four - airlines!!"
+print(doSomeThings(with: someText))
+
+
+
+
+

@@ -1,0 +1,148 @@
+// 1/3
+
+class Performer{
+    var name: String
+    var surname: String
+    init(name: String, surname: String){
+        self.name = name
+        self.surname = surname
+    }
+    func performance(){
+        print("Performs \(name) \(surname)")
+    }
+}
+
+class Dancer: Performer{
+    override func performance(){
+        print("In dancepool performs dancer \(super.name) \(super.surname) with his dance")
+    }
+}
+
+class Artist: Performer{
+    override func performance(){
+        print("In scene performs artist \(super.name) with his art")
+    }
+}
+
+class Singer: Performer{
+override func performance(){
+        print("In scene performs singer \(super.name) \(super.surname) with his song")
+    }
+}
+
+var singer = Singer(name: "Alex", surname: "Songerstyle")
+var dancer = Dancer(name: "Fort", surname: "Night")
+var artist = Artist(name: "Apex", surname: "The Legeng")
+
+var performancers = [singer, dancer, artist]
+
+for i in performancers{
+    i.performance()
+}
+// 2/3
+
+class Transport{
+    var avgSpeedKmH: Double
+    var peopleCapasity: Int
+    var oneKmMoveCost: Int
+
+    init(avarageSpeedInKmH: Double, peopleCapasity: Int, oneKmMoveCost: Int){
+        avgSpeedKmH = avarageSpeedInKmH
+        self.peopleCapasity = peopleCapasity
+        self.oneKmMoveCost = oneKmMoveCost
+    }
+
+    func transportation(countPeoples count: Int, countKm: Double) -> String{
+        var cost : Double
+        var time: Double
+        var timesDouble = Double(count) / Double(peopleCapasity)
+        var times : Int = ( timesDouble  == Double(Int(timesDouble)) ) ? Int(timesDouble) : Int(timesDouble) + 1
+        cost = Double(times) * countKm * Double(oneKmMoveCost)
+        time = (Double(times) * countKm) / avgSpeedKmH
+        return ("Cost - \(cost) , \(times) times, take \(time) hours")
+    }
+}
+
+class Plane: Transport{
+    init(){
+        super.init(avarageSpeedInKmH: 220.5, peopleCapasity: 50, oneKmMoveCost: 5)
+    }
+}
+
+class Helicopter: Transport{
+    init(){
+        super.init(avarageSpeedInKmH: 200, peopleCapasity: 10, oneKmMoveCost: 7)
+    }
+}
+
+class Car: Transport{
+    init(){
+        super.init(avarageSpeedInKmH: 100, peopleCapasity: 6, oneKmMoveCost: 3)
+    }
+}
+
+class Train: Transport{
+    init(){
+        super.init(avarageSpeedInKmH: 140.5, peopleCapasity: 175, oneKmMoveCost: 7)
+    }
+}
+
+class Ship: Transport{
+    init(){
+        super.init(avarageSpeedInKmH: 50, peopleCapasity: 300, oneKmMoveCost: 3)
+    }
+}
+
+var plane = Plane()
+var heli = Helicopter()
+var car = Car()
+var train = Train()
+var ship = Ship()
+
+var array = [plane, heli, car, train, ship]
+for transport in array{
+    print(transport.transportation(countPeoples: 2, countKm: 10))
+}
+
+
+// 3/3
+
+class Life{final var hasLife = true}
+
+class Animal: Life{}
+
+class Fourlegged: Animal{final var legs = 4}
+
+class Reptile:Fourlegged{}
+
+class Human: Fourlegged{}
+class Monkey: Fourlegged{}
+class Dog: Fourlegged{}
+class Chicken: Animal{}
+class Crocodile: Reptile{}
+
+var human1 = Human()
+var human2 = Human()
+
+var monkey1 = Monkey()
+var monkey2 = Monkey()
+
+var dog1 = Dog()
+var dog2 = Dog()
+
+var chicken1 = Chicken()
+var chicken2 = Chicken()
+
+var crocodile1 = Crocodile()
+var crocodile2 = Crocodile()
+
+var reptiles: [Reptile] = [crocodile1, crocodile2]
+var fourlegged: [Fourlegged] = [crocodile1, crocodile2, dog1, dog2, monkey1, monkey2, human1, human2]
+var animals: [Animal] = [crocodile1, crocodile2, chicken1, chicken1, dog1, dog2, monkey1, monkey2, human1, human2]
+var life: [Life] = [crocodile1, crocodile2, chicken1, chicken2, dog1, dog2, monkey1, monkey2, human1, human2]
+
+print("Reptiles - \(reptiles.count)")
+print("Fourlegged - \(fourlegged.count)")
+print("Animals - \(animals.count)")
+print("Life - \(life.count)")
+

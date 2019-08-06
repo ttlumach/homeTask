@@ -1,0 +1,42 @@
+import Foundation
+
+// 1/4
+var seconds = (23 + 30 + 31 + 30 + 31 + 28 + 31)*24*60*60 
+print(seconds)
+
+// 2/4
+var month = 9
+
+
+if (month == 12){
+    print("first")
+} else if (  month / 3  == 0){
+    print("first")
+} else if (  month / 3  == 1){
+    print("second")
+} else if ( month  / 3  == 2) {
+    print("third")
+} else {
+    print("fourth")
+}
+
+// 3/4
+var a = 5
+var b = 7
+
+let total = ( (5 + 6) - (8 * 3)) - (5 / 10) + a+1 + b+1 + a+1 + b+1
+
+// 4/4
+
+let x = 1
+let y = 7
+
+if ((x % 2 == 1 && y % 2 == 2) || (x % 2 == 0 && y % 2 == 1)){
+    print("white")
+}  else {
+    print("black")
+}
+
+
+
+

@@ -1,0 +1,67 @@
+import Foundation
+
+// 1/3
+
+var strMain = String()
+var summ = 0
+
+let str1 = "123"
+let str2 = "12q"
+let str3 = "34"
+
+if (Int(str1) != nil ){
+    strMain += str1
+    summ += Int(str1)!
+} else {
+    strMain += "nil"
+}
+
+if (Int(str2) != nil ){
+    strMain += str2
+    summ += Int(str1)!
+} else {
+    strMain += " + nil "
+}
+
+if (Int(str3) != nil ){
+    strMain = strMain + " + " + str3
+    summ += Int(str1)!
+} else {
+    strMain = strMain +  " + nil "
+}
+strMain = strMain + " = " + String(summ)
+print(strMain)
+
+
+// 2/3
+
+let str = "\u{1F414}" + "\u{1F300}" + "\u{1F250}" + "\u{1F301}" + "\u{1F304}"
+print(str)
+
+print(str.count)
+print((str as NSString).length)
+
+// 3/3
+
+let alphabet = "abcdefghijklmnopqrstuvwxyz"
+let cr : Character = "z"
+var i = 0
+for char in alphabet{
+    if(char == cr){
+        print(i)
+    }
+    i+=1
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,82 @@
+import Foundation
+
+//1/3
+
+let daysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31,]
+
+for el in daysInMonth {
+    print(el, terminator: " ")
+}
+print(" ")
+
+let nameOfMonth = ["January", "February","March","April","May","June","July","August","September","October","November","December"]
+
+for i in  0..<nameOfMonth.count{
+    print("\(nameOfMonth[i]) - \(daysInMonth[i])")
+}
+
+var daysAndMonthTuple = [(String, Int)]()
+for i in 0..<nameOfMonth.count{
+    var buffer = (month:nameOfMonth[i], day:daysInMonth[i])
+    daysAndMonthTuple.append(buffer)
+}
+    print("\(daysAndMonthTuple)")
+
+for i in 1...daysInMonth.count {
+    print(daysInMonth[daysInMonth.count - i], terminator: " ")
+}
+print(" ")
+
+
+let dob = (day:23, month:7)
+var summDays = 0
+
+for i in 0..<(dob.month - 1){
+    summDays += daysInMonth[i]
+}
+summDays += dob.day 
+
+print ("Days in year before my birthday - \(summDays)")
+
+// 2/3
+
+let optionalArray  = [nila,100,25,nil,nil]
+var summa = 0
+
+for el in optionalArray{
+    if (el != nil){
+        summa += el!
+    }
+}
+print(summa)
+
+summa = 0
+for el in optionalArray{
+    if let smth = el{
+        summa += el!
+    }
+}
+print(summa)
+
+// 3/3
+
+let alphabet = "abcdefghijklmnopqrstuvwxyz"
+var alphabetArray = [String]()
+
+for el in alphabet{
+    alphabetArray.insert(String(el),at:0)
+}
+print(alphabetArray)
+
+
+
+
+
+
+
+
+
+
+
+
+

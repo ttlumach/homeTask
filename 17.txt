@@ -1,0 +1,173 @@
+enum GameEnd{
+    case Win
+    case Draw
+}
+
+enum Status{
+    case Empty
+    case O
+    case X
+}
+
+struct Field{
+    var field : [Int:Status] = [
+        7: .Empty, 8: .Empty, 9: .Empty,
+        4: .Empty, 5: .Empty, 6: .Empty,
+        1: .Empty, 2: .Empty, 3: .Empty
+    ]
+    subscript(index: Int) -> Status?{
+        get{
+            return field[index]
+        }
+        set{
+            field[index] = newValue
+        }
+    }
+}
+
+struct Player{
+    var name: String
+    init(name: String){
+        self.name = name
+    }
+    var figure: Status?
+}
+
+struct Game{
+    static var maxCell = 9
+    var player1: Player
+    var player2: Player
+    var field: Field{
+        didSet{
+            var check: Status
+            for i in 1...2{
+                if i == 1 {
+                    check = .O
+                } else {
+                    check = .X
+                }
+                if somebodyWin(check){
+                    gameEnd(description: GameEnd.Win)
+                }
+                if draw(){
+                    gameEnd(description: GameEnd.Draw)
+                    break
+                }
+            }
+        }
+    }
+    static var lastTurn = 0
+
+    mutating func start(){
+        for i in 1...9{
+            field[i] = .Empty
+        }
+        self.player1.figure = .X
+        self.player2.figure = .O
+    }
+
+    mutating func player1Go(on number: Int){
+        if number >= 1 && number <= Game.maxCell && field[number] == .Empty{
+            field[number] = player1.figure
+            Game.lastTurn = 1
+        } else {
+            print("Wrong input!")
+        }
+    }
+
+    mutating func player2Go(on number: Int){
+        if number >= 1 && number <= Game.maxCell{
+            field[number] = player2.figure
+            Game.lastTurn = 2
+        } else {
+            print("Wrong input!")
+        }
+    }
+
+    func somebodyWin(_ f: Status) -> Bool{
+        if field[7] == f && field[8] == f && field[9] == f ||
+            field[4] == f && field[5] == f && field[6] == f ||
+            field[1] == f && field[2] == f && field[3] == f ||
+            field[7] == f && field[4] == f && field[1] == f ||
+            field[8] == f && field[5] == f && field[2] == f ||
+            field[9] == f && field[6] == f && field[3] == f ||
+            field[7] == f && field[5] == f && field[3] == f ||
+            field[1] == f && field[5] == f && field[9] == f{
+                return true
+        } else {
+            return false
+        }
+    }
+
+    func draw() -> Bool{
+        for i in 1..<field.field.count{
+            if field[i] == .Empty{
+                return false
+            }
+        }
+        return true
+    }
+
+    mutating func gameEnd(description desc: GameEnd){
+        if desc == .Win && Game.lastTurn == 1 {
+            print("Player \(player1.name) win !!!! Congratulations!")
+            end()
+        } else if desc == .Win && Game.lastTurn == 2 {
+            print("Player \(player2.name) win !!!! Congratulations!")
+            end()
+        } else {
+            print("Draw!")
+        }
+    }
+
+    mutating func end(){
+        display()
+        Game.lastTurn = 0
+        field = Field()
+    }
+
+    func display(){
+        for i in 1...9{
+            switch self.field.field[i]!{
+                case .Empty: print("\u{00A0}", terminator: "")
+                case .O: print("O", terminator: "")
+                case .X: print("X", terminator: "")
+                default: break
+            }
+            if (i) % 3 != 0 {
+                print("|", terminator: "")
+            }
+            if ( (i) % 3 == 0 && i < 9){
+                print("\n\u{2501} \u{2501} \u{2501}\n", terminator: "")
+            }
+        }
+        print("\n------------")
+    }
+}
+
+
+var f = Field()
+var player1 = Player(name: "Van Pencil")
+var player2 = Player(name: "Princ Pencii")
+var game = Game(player1: player1, player2: player2, field: f)
+game.display()
+game.start()
+
+game.player2Go(on: 7)
+game.display()
+game.player1Go(on: 8)
+game.display()
+game.player2Go(on: 9)
+game.display()
+game.player1Go(on: 5)
+game.display()
+game.player2Go(on: 4)
+game.display()
+game.player1Go(on: 6)
+game.display()
+game.player2Go(on: 2)
+game.display()
+game.player1Go(on: 1)
+game.display()
+game.player2Go(on: 3)
+game.display()
