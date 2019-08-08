@@ -1,0 +1,275 @@
+// 1/3
+/*
+class Human{
+    var father: Human!
+    var mother: Human!
+    var brothers: [Human]?
+    var sisters: [Human]?
+}
+
+
+let emma = Human()
+let tommy = Human()
+
+let marta = Human()
+let emonem = Human()
+let cherra = Human()
+
+let olivia = Human()
+let jack = Human()
+
+let harry = Human()
+let george = Human()
+
+let alfie = Human()
+
+let amelia = Human()
+let charlie = Human()
+
+marta.mother = emma
+marta.father = tommy
+marta.brothers = [emonem]
+marta.sisters = [cherra]
+
+emonem.mother = emma
+emonem.father = tommy
+emonem.sisters = [cherra, marta]
+
+cherra.mother = emma
+cherra.father = tommy
+cherra.brothers = [emonem]
+cherra.sisters = [marta]
+
+olivia.father = emonem
+olivia.brothers = [jack]
+
+jack.father = emonem
+jack.sisters = [olivia]
+
+harry.mother = cherra
+harry.brothers = [george]
+
+george.mother = cherra
+george.brothers = [harry]
+
+amelia.mother = olivia
+amelia.brothers = [charlie]
+
+charlie.mother = olivia
+charlie.sisters = [amelia]
+
+alfie.father = harry
+
+
+print(george.mother?.brothers?.count)
+print(george.mother?.sisters?.count)
+
+print(jack.father?.sisters?.count)
+print(jack.father?.brothers?.count)
+*/
+// 2/3
+/*
+class Man{
+    var father: Man!
+    var mother: Woman!
+    var brothers: [Man]?
+    var sisters: [Woman]?
+    func moveSofa(){print("Sofa was moved")}
+}
+
+class Woman{
+    var father: Man?
+    var mother: Woman?
+    var brothers: [Man]?
+    var sisters: [Woman]?
+    func cookFood(){print("Food was cooked")}
+}
+
+
+let emma = Woman()
+let tommy = Man()
+
+let marta = Woman()
+let emonem = Man()
+let cherra = Woman()
+
+let olivia = Woman()
+let jack = Man()
+
+let harry = Man()
+let george = Man()
+
+let alfie = Woman()
+
+let amelia = Woman()
+let charlie = Man()
+
+marta.mother = emma
+marta.father = tommy
+marta.brothers = [emonem]
+marta.sisters = [cherra]
+
+emonem.mother = emma
+emonem.father = tommy
+emonem.sisters = [cherra, marta]
+
+cherra.mother = emma
+cherra.father = tommy
+cherra.brothers = [emonem]
+cherra.sisters = [marta]
+
+olivia.father = emonem
+olivia.brothers = [jack]
+
+jack.father = emonem
+jack.sisters = [olivia]
+
+harry.mother = cherra
+harry.brothers = [george]
+
+george.mother = cherra
+george.brothers = [harry]
+
+amelia.mother = olivia
+amelia.brothers = [charlie]
+
+charlie.mother = olivia
+charlie.sisters = [amelia]
+
+alfie.father = harry
+
+var family: [AnyObject] = [emma, tommy, marta, emonem, cherra, olivia, jack, harry, george, amelia, charlie, alfie]
+
+for h in family{
+    switch h{
+        case let h as Man: h.moveSofa()
+        case let h as Woman: h.cookFood()
+        default: break
+    }
+
+}
+*/
+
+// 3/3
+
+class Animal{
+    func sound(){}
+}
+
+class Dog: Animal{
+    override func sound(){
+        print("Woof woof!")
+    }
+}
+
+class Cat: Animal{
+    override func sound(){
+        print("Meow!")
+    }
+}
+
+class Parrot: Animal{
+    override func sound(){
+        print("Ama parrot, you`re faggot!")
+    }
+}
+
+class Horse: Animal{
+    override func sound(){
+        print("²γξγξ!")
+    }
+}
+
+class Pig: Animal{
+    override func sound(){
+        print("Υπώ υπώ!")
+    }
+}
+
+class Fly: Animal{
+    override func sound(){
+        print("Bzzzz....")
+    }
+}
+
+class Human{
+    var father: Human!
+    var mother: Human!
+    var brothers: [Human]?
+    var sisters: [Human]?
+    var pets: [Animal]? 
+}
+
+
+let emma = Human()
+let tommy = Human()
+
+let marta = Human()
+let emonem = Human()
+let cherra = Human()
+
+let olivia = Human()
+let jack = Human()
+
+let harry = Human()
+let george = Human()
+
+let alfie = Human()
+
+let amelia = Human()
+let charlie = Human()
+
+marta.mother = emma
+marta.father = tommy
+marta.brothers = [emonem]
+marta.sisters = [cherra]
+marta.pets = [Cat(), Cat(), Dog()]
+
+emonem.mother = emma
+emonem.father = tommy
+emonem.sisters = [cherra, marta]
+emonem.pets = [Fly(), Fly()]
+
+cherra.mother = emma
+cherra.father = tommy
+cherra.brothers = [emonem]
+cherra.sisters = [marta]
+cherra.pets = [Horse(), Pig()]
+
+olivia.father = emonem
+olivia.brothers = [jack]
+olivia.pets = [Parrot()]
+
+jack.father = emonem
+jack.sisters = [olivia]
+jack.pets = [Dog(), Pig()]
+
+harry.mother = cherra
+harry.brothers = [george]
+harry.pets = [Fly(), Fly(), Fly()]
+
+george.mother = cherra
+george.brothers = [harry]
+george.pets = [Cat(), Cat(), Cat()]
+
+amelia.mother = olivia
+amelia.brothers = [charlie]
+
+charlie.mother = olivia
+charlie.sisters = [amelia]
+charlie.pets = [Dog(), Dog()]
+
+alfie.father = harry
+alfie.pets = [Horse(), Horse(), Horse(), Pig(), Pig(), Dog(), Cat()]
+
+
+let family = [emma, tommy, marta, emonem, cherra, olivia, jack, harry, george, amelia, charlie, alfie]
+
+for member in family{
+    var count = member.pets?.count
+    if count != nil{
+        for pet in member.pets!{
+            pet.sound()
+        }
+    }
+}

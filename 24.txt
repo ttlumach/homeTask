@@ -1,0 +1,102 @@
+import Foundation
+extension Int{
+    func isNegative() -> Bool{
+        return self >= 0 ? false : true
+    }
+
+    func isPositive() -> Bool{
+        return !isNegative()
+    }
+}
+
+extension Int{
+    func toBool() -> Bool{
+        return self == 0 ? false : true
+    }
+}
+
+extension Int{
+    func digits() -> Int{
+        for i in 0...30{
+            if self % Int( pow(Double(10),Double(i)) ) == self{
+                return i
+            }
+        }
+        return 0
+    }
+
+    subscript(value: Int) -> Int?{
+        let upper = Int( pow(Double(10), Double(value) + 1) )
+        let lower = Int( pow(Double(10), Double(value)) )
+        if lower > self {
+            return nil
+        }
+        return (self % upper - self % lower ) / lower
+
+    } 
+}
+
+
+print((-1).isPositive())
+print((-1).toBool())
+print(-56842411.digits())
+print( 56874[3]! )
+print( 56874[6] )
+
+extension String{
+    subscript(_ range: ClosedRange<Int>) -> String{
+        get{
+            var result = ""
+            for i in range{
+                result += String(self[self.index(self.startIndex, offsetBy: i)])
+            }
+            return result
+        }
+        set{
+            for i in range{
+                var index = self.index(self.startIndex, offsetBy: range.lowerBound)
+                self.remove(at:index)
+            }
+
+            var i = range.lowerBound
+            for el in newValue{
+                var index = self.index(self.startIndex, offsetBy: i)
+                self.insert(el, at: index)
+                i += 1
+            }
+        }
+    }
+
+    subscript(_ range: Range<Int>) -> String{
+        get{
+            var newRange = range.lowerBound...(range.upperBound - 1)
+            return self[newRange]
+        }
+        set{
+            var newRange = range.lowerBound...(range.upperBound - 1)
+            self[newRange] = newValue
+        }
+    }
+}
+
+extension String{
+    func trancate(_ number: Int) -> String{
+        if number < self.count{
+            return self[0..<number] + "..."
+        } else {
+            return self
+        }
+    }
+}
+
+var str1 = "Hello world"
+var str2 = "Hello world"
+print(str1[0...6])
+print(str1[0..<7])
+str1[0...5] = "qq"
+print(str1)
+str2[0..<6] = "qq"
+print(str2)
+
+print(str1.trancate(6))
+
